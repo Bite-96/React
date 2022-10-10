@@ -1,34 +1,19 @@
 import React from "react";
-import propTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Detail from "../routes/Detail";
 
-function Movie({ id, coverImg, title, summary, genres }) {
+function Movie({ id, coverImg, title, year, summary, genres }) {
+
     return (
         <div>
-            <img src={coverImg} alt="title"/>
-            <h2>
-                <Link to={`${process.env.PUBLIC_URL}/movie/:id`} element={<Detail />}>
-                    {title}
-                </Link>
-            </h2>
-            <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
+            <h1>{title} ({year})</h1>
+            <img src={coverImg} alt={title}/>
+            <p>{summary}</p>
             <ul>
-            {genres.map((g) => (
-                <li key={g}>{g}</li>
-            ))}
+                {genres && genres.map((g) => 
+                    <li key={g}>{g}</li>
+                )}
             </ul>
-            <hr />
         </div>
     );
 }
-
-Movie.propTypes = {
-    id : propTypes.number.isRequired,
-    coverImg : propTypes.string.isRequired,
-    title : propTypes.string.isRequired,
-    summary : propTypes.string.isRequired,
-    genres : propTypes.arrayOf(propTypes.string).isRequired,
-};
 
 export default Movie;
